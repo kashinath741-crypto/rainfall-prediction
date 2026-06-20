@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="AI-powered daily rainfall prediction for all districts of Uttar Pradesh." />
+  <title>{{ title }}</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌧️</text></svg>" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+
+<!-- Animated rain background -->
+<div class="rain-container" id="rain"></div>
+
+<div class="page-wrapper">
+
+  <!-- Navigation -->
+  <nav>
+    <span class="nav-brand">🌧️ UP Rainfall Predictor</span>
+    <div class="nav-links">
+      <a href="{{ url_for('index') }}" class="active">Predict</a>
+      <a href="{{ url_for('history') }}">History</a>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- Hero -->
+    <div class="hero">
+      <span class="hero-icon">🌧️</span>
+      <h1>UP Rainfall Predictor</h1>
+      <p>AI-powered daily rainfall forecast for Uttar Pradesh districts</p>
+    </div>
+
+    <!-- Prediction form card -->
+    <div class="card">
+      <span class="section-label">📍 Forecast Details</span>
+
+      {% if errors %}
+      <ul class="error-list">
+        {% for err in errors %}
+        <li>{{ err }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+      <form id="predict-form" method="POST" action="{{ url_for('predict') }}" novalidate>
+
+        <div class="form-grid">
+
+          <!-- District -->
+          <div class="form-group">
+            <label for="district">🗺️ Select District</label>
+            <div class="select-wrapper">
+              <select id="district" name="district" required>
+                <option value="" disabled {% if not selected_district %}selected{% endif %}>
+                  Choose a district…
+                </option>
+                {% for d in districts %}
+                <option value="{{ d }}"
+                  {% if selected_district == d %}selected{% endif %}>
+                  {{ d }}
+                </option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+
+          <!-- Date -->
+          <div class="form-group">
+            <label for="forecast_date">📅 Forecast Date</label>
+            <input
+              type="date"
+              id="forecast_date"
+              name="forecast_date"
+              required
+              min="2000-01-01"
+              max="2030-12-31"
+              value="{{ selected_date if selected_date else today }}"
+            />
+          </div>
+
+        </div><!-- /.form-grid -->
+
+        <button type="submit" class="btn-predict" id="submit-btn">
+          <span class="btn-text">🔮&nbsp; Predict Rainfall</span>
+          <span class="spinner"></span>
+        </button>
+
+      </form>
+    </div><!-- /.card -->
+
+    <!-- Info strip -->
+    <div style="text-align:center; margin-top:1.25rem;">
+      <div class="chips">
+        <span class="chip">🤖 Random Forest AI</span>
+        <span class="chip">📊 565 K training samples</span>
+        <span class="chip">🗺️ 75 UP Districts</span>
+        <span class="chip">📈 R² ≈ 0.77</span>
+      </div>
+    </div>
+
+  </div><!-- /.container -->
+
+  <footer>
+    Powered by Random Forest AI · UP Climate Data (NASA POWER) · Built with Flask &amp; Python
+  </footer>
+
+</div><!-- /.page-wrapper -->
+
+<script src="{{ url_for('static', filename='js/rain.js') }}"></script>
+<script>
+  // Show loading state on form submit
+  document.getElementById('predict-form').addEventListener('submit', function () {
+    const btn = document.getElementById('submit-btn');
+    btn.classList.add('loading');
+    btn.disabled = true;
+  });
+</script>
+</body>
+</html>

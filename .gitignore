@@ -1,0 +1,52 @@
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+.Python
+
+# ── Virtual environments ───────────────────────────────────────────────────────
+venv/
+.venv/
+env/
+ENV/
+
+# ── Distribution / packaging ───────────────────────────────────────────────────
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# ── Environment variables ──────────────────────────────────────────────────────
+.env
+
+# ── IDE / editor artifacts ─────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ── Jupyter Notebook checkpoints ──────────────────────────────────────────────
+.ipynb_checkpoints/
+
+# ── Large dataset (do NOT commit to Git) ─────────────────────────────────────
+UP_rainfall_dataset.csv
+
+# ── SQLite database ────────────────────────────────────────────────────────────
+data/predictions.db
+
+# ── Large model files ──────────────────────────────────────────────────────────
+artifacts/models/*.joblib
+
+
+# ── Pytest / coverage ─────────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+*.log
+logs/

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Rainfall prediction result for {{ district }}, Uttar Pradesh." />
+  <title>{{ title }} – {{ district }}</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>{{ icon }}</text></svg>" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+
+<!-- Animated rain background -->
+<div class="rain-container" id="rain"></div>
+
+<div class="page-wrapper">
+
+  <!-- Navigation -->
+  <nav>
+    <span class="nav-brand">🌧️ UP Rainfall Predictor</span>
+    <div class="nav-links">
+      <a href="{{ url_for('index') }}">Predict</a>
+      <a href="{{ url_for('history') }}">History</a>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- Hero -->
+    <div class="hero">
+      <span class="hero-icon">{{ icon }}</span>
+      <h1>{{ headline }}</h1>
+      <p>{{ description }}</p>
+    </div>
+
+    <!-- Result card -->
+    <div class="card card-{{ category }}">
+      <div class="result-hero">
+        <div class="result-headline">Predicted Daily Rainfall</div>
+        <div class="result-value">
+          {{ "%.2f"|format(prediction_mm) }}&nbsp;<span>mm</span>
+        </div>
+        <div class="result-desc">{{ description }}</div>
+      </div>
+
+      <!-- Chips -->
+      <div class="chips">
+        <span class="chip">📅 {{ forecast_date }}</span>
+        <span class="chip">📍 {{ district }}</span>
+        <span class="chip">🌿 {{ season }}</span>
+        <span class="chip">🌡️ {{ defaults.T2M_MAX }}°C / {{ defaults.T2M_MIN }}°C</span>
+        <span class="chip">💧 {{ defaults.RH2M }}% humidity</span>
+      </div>
+    </div>
+
+    <!-- Details grid -->
+    <div class="details-grid" style="margin-top:1.5rem;">
+      <div class="detail-item">
+        <div class="detail-label">Wind Speed</div>
+        <div class="detail-value">{{ defaults.WS50M }} m/s</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Dew Point</div>
+        <div class="detail-value">{{ defaults.T2MDEW }}°C</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">UV Index</div>
+        <div class="detail-value">{{ defaults.ALLSKY_SFC_UV_INDEX }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Pressure</div>
+        <div class="detail-value">{{ defaults.PS }} kPa</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Latitude</div>
+        <div class="detail-value">{{ "%.2f"|format(lat) }}°N</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Longitude</div>
+        <div class="detail-value">{{ "%.2f"|format(lon) }}°E</div>
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- Actions -->
+    <div style="display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; margin-top:0.5rem;">
+      <a href="{{ url_for('index') }}" class="btn-secondary">
+        ← Make another prediction
+      </a>
+      <a href="{{ url_for('history') }}" class="btn-secondary">
+        📋 View prediction history
+      </a>
+    </div>
+
+    <!-- Record ID note -->
+    <p style="text-align:center; font-size:0.75rem; color:rgba(150,180,220,0.4); margin-top:1.25rem;">
+      Logged as record #{{ db_row_id }}
+    </p>
+
+  </div><!-- /.container -->
+
+  <footer>
+    Powered by Random Forest AI · UP Climate Data (NASA POWER) · Built with Flask &amp; Python
+  </footer>
+
+</div><!-- /.page-wrapper -->
+
+<script src="{{ url_for('static', filename='js/rain.js') }}"></script>
+</body>
+</html>

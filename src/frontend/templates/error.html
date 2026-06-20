@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ title }} – UP Rainfall Predictor</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚠️</text></svg>" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+
+<div class="rain-container" id="rain"></div>
+
+<div class="page-wrapper">
+
+  <nav>
+    <span class="nav-brand">🌧️ UP Rainfall Predictor</span>
+    <div class="nav-links">
+      <a href="{{ url_for('index') }}">Predict</a>
+      <a href="{{ url_for('history') }}">History</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="hero">
+      <span class="hero-icon" style="animation:none;">⚠️</span>
+    </div>
+
+    <div class="card error-page">
+      <div class="error-code">500</div>
+      <h2 style="font-size:1.3rem; margin-bottom:0.5rem;">{{ title }}</h2>
+      <p>{{ message | safe }}</p>
+      <a href="{{ url_for('index') }}" class="btn-secondary">← Back to Home</a>
+    </div>
+  </div>
+
+  <footer>
+    Powered by Random Forest AI · UP Climate Data · Built with Flask &amp; Python
+  </footer>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/rain.js') }}"></script>
+</body>
+</html>

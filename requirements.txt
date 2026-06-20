@@ -1,0 +1,23 @@
+# Core scientific stack
+numpy>=1.24.0
+pandas>=2.0.0
+scikit-learn>=1.3.0
+joblib>=1.3.0
+
+# Web framework
+flask>=3.0.0
+
+# Streamlit frontend (alternative to Flask)
+streamlit>=1.35.0
+
+# Environment variables
+python-dotenv>=1.0.0
+
+# Notebook support (for running / inspecting the original .ipynb)
+jupyter>=1.0.0
+notebook>=7.0.0
+ipykernel>=6.0.0
+
+# Data visualisation (used in notebook; not required at runtime)
+matplotlib>=3.7.0
+seaborn>=0.12.0

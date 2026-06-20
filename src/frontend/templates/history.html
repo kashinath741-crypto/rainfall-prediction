@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Recent rainfall predictions for Uttar Pradesh districts." />
+  <title>{{ title }}</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+
+<!-- Animated rain background -->
+<div class="rain-container" id="rain"></div>
+
+<div class="page-wrapper">
+
+  <!-- Navigation -->
+  <nav>
+    <span class="nav-brand">🌧️ UP Rainfall Predictor</span>
+    <div class="nav-links">
+      <a href="{{ url_for('index') }}">Predict</a>
+      <a href="{{ url_for('history') }}" class="active">History</a>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- Hero -->
+    <div class="hero">
+      <span class="hero-icon" style="animation:none;">📋</span>
+      <h1>Prediction History</h1>
+      <p>Last {{ records|length }} predictions logged to the database</p>
+    </div>
+
+    <!-- Table card -->
+    <div class="card" style="padding:0; overflow:hidden;">
+      {% if records %}
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Timestamp (UTC)</th>
+              <th>District</th>
+              <th>Forecast Date</th>
+              <th>Season</th>
+              <th>Rain (mm)</th>
+              <th>Category</th>
+              <th>Model</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for r in records %}
+            <tr>
+              <td>{{ r.id }}</td>
+              <td style="white-space:nowrap;">{{ r.timestamp[:19].replace('T',' ') }}</td>
+              <td>{{ r.district }}</td>
+              <td>{{ r.forecast_date }}</td>
+              <td style="text-transform:capitalize;">{{ r.season.replace('-',' ') }}</td>
+              <td>
+                <strong style="color:#e8f0ff;">{{ "%.2f"|format(r.prediction_mm) }}</strong>
+              </td>
+              <td>
+                <span class="badge badge-{{ r.category }}">
+                  {% if r.category == 'heavy' %}⛈️{% elif r.category == 'moderate' %}🌦️{% else %}☀️{% endif %}
+                  {{ r.category }}
+                </span>
+              </td>
+              <td style="font-size:0.78rem; color:rgba(150,180,220,0.5);">{{ r.model_version }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div><!-- /.table-wrapper -->
+      {% else %}
+      <div class="empty-state">
+        <span class="empty-icon">📭</span>
+        No predictions recorded yet.<br />
+        <a href="{{ url_for('index') }}" style="color:var(--clr-accent);">Make your first prediction →</a>
+      </div>
+      {% endif %}
+    </div><!-- /.card -->
+
+    <div style="text-align:center; margin-top:1.5rem;">
+      <a href="{{ url_for('index') }}" class="btn-secondary">
+        ← Back to Predictor
+      </a>
+    </div>
+
+  </div><!-- /.container -->
+
+  <footer>
+    Powered by Random Forest AI · UP Climate Data (NASA POWER) · Built with Flask &amp; Python
+  </footer>
+
+</div><!-- /.page-wrapper -->
+
+<script src="{{ url_for('static', filename='js/rain.js') }}"></script>
+</body>
+</html>
