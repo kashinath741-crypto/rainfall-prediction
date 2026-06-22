@@ -91,6 +91,7 @@ if %OPTION% equ 1 (
     echo        Access the application at http://127.0.0.1:5000
     echo        Press Ctrl+C in this window to stop the server.
     echo.
+    start http://127.0.0.1:5000
     %PY_CMD% src\frontend\app.py
     echo.
     echo [INFO] Application has stopped.
@@ -99,7 +100,10 @@ if %OPTION% equ 1 (
 if %OPTION% equ 2 (
     echo.
     echo [INFO] Launching Streamlit Web Application...
+    echo        Access the application at http://localhost:8501
+    echo        Press Ctrl+C in this window to stop the server.
     echo.
+    start http://localhost:8501
     %PY_CMD% -m streamlit run app.py
     echo.
     echo [INFO] Application has stopped.

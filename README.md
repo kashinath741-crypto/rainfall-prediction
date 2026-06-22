@@ -237,7 +237,7 @@ gunicorn -w 4 -b 0.0.0.0:5000 "src.frontend.app:app"
 
 ## 📊 Data Source
 
-NASA POWER (Prediction Of Worldwide Energy Resources) daily climate data for all 75 districts of Uttar Pradesh, India, spanning **2005 – 2024**.
+NASA POWER (Prediction Of Worldwide Energy Resources) daily climate data for all 75 districts of Uttar Pradesh, India, spanning **2005 – 2025**.
 
 Key variables: `RH2M`, `T2MDEW`, `QV2M`, `PS`, `WS50M`, `T2MWET`, `WD50M`, `T2M_MAX`, `T2M_MIN`, `ALLSKY_SFC_UV_INDEX`, `TS`, `PSC`, `WSC`, `LATITUDE`, `LONGITUDE`
 

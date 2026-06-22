@@ -1,5 +1,7 @@
+# pyrefly: ignore [missing-import]
 import streamlit as st
 import pandas as pd
+# pyrefly: ignore [missing-import]
 import joblib
 from datetime import datetime
 import config
@@ -492,6 +494,9 @@ st.markdown(
         <span class="hero-icon">🌧️</span>
         <h1>UP Rainfall Predictor</h1>
         <p>AI-powered daily rainfall forecast for Uttar Pradesh districts</p>
+        <p style="font-size: 0.85rem; color: rgba(200, 220, 255, 0.4); margin-top: 0.5rem; margin-bottom: 0;">
+            Trained on NASA POWER climate data from 2005 to 2025
+        </p>
     </div>
     """,
     unsafe_allow_html=True,
